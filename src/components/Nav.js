@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 
 class Nav extends Component {
 
-  return (
-
-  )
+  render() {
+    return (
+      <div>
+        <h1>Chat Random</h1>
+      </div>
+    )
+  }
 
 }
 
