@@ -1,4 +1,4 @@
-const API_ROOT = "https://chat-random-server.herokuapp.com/"
+const API_ROOT = "http://localhost:3000"
 
 const headers = {
   'Content-Type': 'application/json',
@@ -13,4 +13,8 @@ const createUser = user => {
   }).then(res => res.json())
 }
 
-export default { createUser }
+const fetchUsers = () => {
+  return fetch(`${API_ROOT}/users`).then(res => res.json())
+}
+
+export default { createUser, fetchUsers }

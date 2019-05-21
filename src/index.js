@@ -11,7 +11,7 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <Router>
-    <ActionCableProvider url='ws://chat-random-server.herokuapp.com/cable'>
+    <ActionCableProvider url='ws://localhost:3000/cable'>
       <App />
     </ActionCableProvider>
   </Router>,

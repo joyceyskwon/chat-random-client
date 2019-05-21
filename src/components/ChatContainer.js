@@ -4,11 +4,28 @@ import ChatRoom from './ChatRoom'
 
 class ChatContainer extends Component {
 
+  state = {
+    userClicked: false
+  }
+
+  isUserClicked = e => {
+    this.setState({ userClicked: true })
+  }
+
   render() {
     return (
       <div>
-        <UsersList />
-        <ChatRoom />
+        {
+        !this.state.userClicked ?
+          <UsersList
+            currentUser={this.props.currentUser}
+            onClick={this.isUserClicked}
+          />
+        :
+          <ChatRoom
+            currentUser={this.props.currentUser}
+          />
+        }
       </div>
     )
   }
