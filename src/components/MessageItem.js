@@ -9,4 +9,4 @@ const MessageItem = ({ message }) => {
 
 }
 
-export default Message
+export default MessageItem
