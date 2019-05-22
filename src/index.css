@@ -7,14 +7,46 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Nav Component */
 .nav {
-  outline-style: solid;
-  outline-color: #ccc;
+  background-color: #365AFF;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  text-align: left;
+  color: white;
 }
 
+.nav-username {
+  float: right;
+}
+
+/* Login Form */
 .loginform {
-  outline-style: solid;
-  outline-color: #ccc;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Chatroom Container */
+.chatroom-container {
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Message Form */
+.message-form {
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Chatroom Form */
+.chatroom-form {
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 code {

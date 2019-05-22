@@ -1,44 +1,83 @@
 import React, { Component } from 'react';
-import UsersList from './UsersList'
+// import UsersList from './UsersList'
 import ChatRoom from './ChatRoom'
+import ChatroomForm from './ChatroomForm'
+import ChatroomsList from './ChatroomsList'
+import adapter from '../services/adapter'
 
 class ChatContainer extends Component {
 
   state = {
-    userClicked: !true,
-    clickedUser: null
+    // not used at the moment
+    // isUserClicked: !true,
+    // clickedUser: null,
+
+    chatrooms: [],
+    currentChatroom: null
   }
 
-  findClickedUser = userId => {
-    if (this.props.users.length > 0) {
-      return this.props.users.find(user => user.id === userId)
-    } else {
-      return alert("no users available")
-    }
+  // Add findClickedUser & renderClickedUser function back in to pass down to UsersList Component once I figure out how to show all websockets connections
+  // findClickedUser = userId => {
+  //   if (this.props.users.length > 0) {
+  //     return this.props.users.find(user => user.id === userId)
+  //   } else {
+  //     return alert("no users available")
+  //   }
+  // }
+
+  // renderClickedUser = userId => {
+  //   this.setState({ isUserClicked: true }, () => {
+  //     this.setState({ clickedUser: this.findClickedUser(userId) })
+  //   })
+  // }
+
+  componentDidMount() {
+    this.fetchChatrooms()
   }
 
-  renderClickedUser = userId => {
-    this.setState({ userClicked: true }, () => {
-      this.setState({ clickedUser: this.findClickedUser })
+  fetchChatrooms = () => {
+    adapter.fetchChatrooms()
+    .then(res => {
+      this.setState({ chatrooms: [...res] })
     })
+  }
+
+  handleChatroomFormSubmit = (e, subject) => {
+    e.preventDefault()
+    const chatroomData = { subject }
+    adapter.createChatroom(chatroomData)
+    .then(currentChatroom => {
+      this.setState({ currentChatroom }, () => console.log(this.state.currentChatroom))
+    })
+  }
+
+  handleChatroomClick = (e, chatroomId) => {
+    console.log("am i clicking?", e, chatroomId)
   }
 
   render() {
     return (
-      <div>
+      <div className='chatroom-container'>
         {
-        !this.state.userClicked ?
-          <UsersList
-            currentUser={this.props.currentUser}
-            onlineUsers={this.props.users}
-            onClick={this.renderClickedUser}
-          />
+        !this.state.currentChatroom ?
+          <div>
+            <h2>Join one of these chatrooms</h2>
+            <ChatroomsList 
+              chatrooms={this.state.chatrooms}
+              handleChatroomClick={this.handleChatroomClick}
+            />
+            <h2>Or create a new chatroom</h2>
+            <ChatroomForm 
+              handleChatroomFormSubmit={this.handleChatroomFormSubmit}
+            />
+          </div>
         :
-          <ChatRoom
+          <ChatRoom 
             currentUser={this.props.currentUser}
-            clickedUser={this.state.clickedUser}
+            chatroom={this.state.currentChatroom}
           />
         }
+
       </div>
     )
   }

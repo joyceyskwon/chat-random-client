@@ -10,21 +10,24 @@ class App extends Component {
 
   state = {
     users: [],
-    currentChatroom: null,
     currentUser: null
   }
 
+  componentDidMount() {
+    this.fetchUsers()
+  }
+
   fetchUsers = () => {
-  // fetch only the online users NOT all the users
+    // fetch websocket connected clients, in the future
     adapter.fetchUsers().then(res => {
-      this.setState({ users: res }, () => console.log(this.state.users))
+      this.setState({ users: [...res] })
     })
   }
 
   createUser = userData => {
     adapter.createUser(userData)
-    .then(res => {
-      this.setState({ currentUser: res })
+    .then(currentUser => {
+      this.setState({ currentUser })
     })
   }
 
@@ -35,7 +38,6 @@ class App extends Component {
       color: userData.color,
       is_online: !false
     }
-    debugger
     this.createUser(user)
   }
 
@@ -57,7 +59,9 @@ class App extends Component {
             this.handleSocketResponse(res)
           }}
         />
-        <Nav />
+        <Nav 
+          currentUser={this.state.currentUser}
+        />
         {
         !this.state.currentUser ?
           <LoginForm 

@@ -9,20 +9,28 @@ class ChatRoom extends Component {
     messages: []
   }
 
-  handleSubmit = (e, content) => {
+  handleMessageFormSubmit = (e, content) => {
     e.preventDefault()
-    adapter.createMessage({ content })
+    const message = {
+      user_id: this.props.currentUser.id,
+      chatroom_id: this.props.chatroom.id,
+      content: content
+    }
+    adapter.createMessage(message)
+    .then(res => {
+      this.setState({ messages: [...res] }, () => console.log(this.state.messages))
+    })
   }
 
   render() {
     return (
       <div>
-        <h3>Chat with {this.props.clickedUser.username}</h3>
+        <h3>Start Chatting!</h3>
         <MessageList 
           messages={this.state.messages}
         />
         <MessageForm 
-          handleSubmit={this.handleSubmit}
+          handleMessageFormSubmit={this.handleMessageFormSubmit}
         />
       </div>
     )

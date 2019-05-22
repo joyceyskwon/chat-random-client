@@ -12,11 +12,11 @@ const headers = {
   'Accepts': 'application/json'
 }
 
-const createUser = user => {
+const createUser = userData => {
   return fetch(`${API_ROOT}/users`, {
     method: 'POST',
     headers,
-    body: JSON.stringify(user)
+    body: JSON.stringify(userData)
   }).then(res => res.json())
 }
 
@@ -42,4 +42,16 @@ const addMessage = msg => {
   }).then(res => res.json())
 }
 
-export default { createUser, fetchUsers, addMessage, API_WS_ROOT }
+const createChatroom = data => {
+  return fetch(`${API_ROOT}/chatrooms`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(data)
+  }).then(res => res.json())
+}
+
+const fetchChatrooms = () => {
+  return fetch(`${API_ROOT}/chatrooms`).then(res => res.json())
+}
+
+export default { createUser, fetchUsers, addMessage, createChatroom, fetchChatrooms, API_WS_ROOT }

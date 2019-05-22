@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import Message from './Message'
+import MessageItem from './MessageItem'
 
 class MessageList extends Component {
 
   renderMessages = messages => {
     if(messages.length > 0) {
-      return messages.map(message => <Message key={message.id} message={message} />)
+      return messages.map(message => {
+        return <MessageItem
+          key={message.id}
+          message={message}
+        />
+      })
     } else {
       return "send a first message"
     }

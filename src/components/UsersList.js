@@ -3,18 +3,22 @@ import UserCard from './UserCard'
 
 class UsersList extends Component {
 
-  // need to call it with this.props.currentUser from render()
-
-  // render not all the registered users, but only the ones that are online
+  // show all websockets connection clients, in the future
 
   renderUserCard = users => {
-    return users.map(user => <UserCard key={user.id} user={user} onClick={this.props.onClick(user.id)} />)
+    return users.map(user => {
+      return <UserCard
+        key={user.id}
+        user={user}
+        onClick={this.props.onClick(user.id)}
+      />
+    })
   }
 
   render() {
     return (
       <div>
-        {this.renderUserCard(this.props.onlineUsers)}
+        {this.renderUserCard(this.props.users)}
       </div>
     )
   }

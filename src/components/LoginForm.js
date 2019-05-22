@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { Button, Form } from 'semantic-ui-react'
 
 class LoginForm extends Component {
 
   state = {
     username: '',
-    color: '000'
+    color: ''
   }
 
   handleOnChange = e => {
@@ -15,25 +16,32 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <div className="loginform">
-        <form onSubmit={e => this.props.handleLoginSubmit(e, this.state)}>
-          Username: 
-          <input 
-            type="text" 
+      <Form 
+        className="loginform"
+        onSubmit={e => this.props.handleLoginSubmit(e, this.state)}
+      >
+        <Form.Field>
+          <label>Username</label>
+          <input
+            placeholder='Username'
+            type="text"
             name="username"
             value={this.state.username}
             onChange={this.handleOnChange}
-          ></input>
-          Color: #
-          <input 
-            type="text" 
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Color</label>
+          <input
+            placeholder='#fff000'
+            type="text"
             name="color"
             value={this.state.color}
             onChange={this.handleOnChange}
-          ></input>
-          <input type="submit" value="Submit"></input>
-        </form>
-      </div>
+          />
+        </Form.Field>
+        <Button type='submit'>Login</Button>
+      </Form>
     )
   }
 
