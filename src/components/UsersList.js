@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import UserCard from './UserCard'
 
 class UsersList extends Component {
 
@@ -6,10 +7,14 @@ class UsersList extends Component {
 
   // render not all the registered users, but only the ones that are online
 
+  renderUserCard = users => {
+    return users.map(user => <UserCard key={user.id} user={user} onClick={this.props.onClick(user.id)} />)
+  }
+
   render() {
     return (
       <div>
-        This is UsersList
+        {this.renderUserCard(this.props.onlineUsers)}
       </div>
     )
   }

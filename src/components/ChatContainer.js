@@ -5,11 +5,22 @@ import ChatRoom from './ChatRoom'
 class ChatContainer extends Component {
 
   state = {
-    userClicked: false
+    userClicked: !true,
+    clickedUser: null
   }
 
-  isUserClicked = e => {
-    this.setState({ userClicked: true })
+  findClickedUser = userId => {
+    if (this.props.users.length > 0) {
+      return this.props.users.find(user => user.id === userId)
+    } else {
+      return alert("no users available")
+    }
+  }
+
+  renderClickedUser = userId => {
+    this.setState({ userClicked: true }, () => {
+      this.setState({ clickedUser: this.findClickedUser })
+    })
   }
 
   render() {
@@ -19,11 +30,13 @@ class ChatContainer extends Component {
         !this.state.userClicked ?
           <UsersList
             currentUser={this.props.currentUser}
-            onClick={this.isUserClicked}
+            onlineUsers={this.props.users}
+            onClick={this.renderClickedUser}
           />
         :
           <ChatRoom
             currentUser={this.props.currentUser}
+            clickedUser={this.state.clickedUser}
           />
         }
       </div>

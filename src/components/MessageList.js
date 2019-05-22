@@ -3,9 +3,9 @@ import Message from './Message'
 
 class MessageList extends Component {
 
-  renderMessages = () => {
-    if(this.props.messages.length > 0) {
-      this.props.messages.map(message => <Message key={message.id} message={message} />)
+  renderMessages = messages => {
+    if(messages.length > 0) {
+      return messages.map(message => <Message key={message.id} message={message} />)
     } else {
       return "send a first message"
     }
@@ -14,7 +14,7 @@ class MessageList extends Component {
   render() {
     return (
       <div className="ui">
-        {this.renderMessages}
+        {this.renderMessages(this.props.messages)}
       </div>
     )
   }

@@ -5,13 +5,14 @@ import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom'
 import { ActionCableProvider } from 'react-actioncable-provider'
 import * as serviceWorker from './serviceWorker';
+import adapter from './services/adapter';
 
 // const host = location.origin.replace(/^http/, 'ws')
 // this.connection = new Websocket(host)
 
 ReactDOM.render(
   <Router>
-    <ActionCableProvider url='ws://localhost:3000/cable'>
+    <ActionCableProvider url={adapter.API_WS_ROOT}>
       <App />
     </ActionCableProvider>
   </Router>,
