@@ -58,19 +58,18 @@ class ChatContainer extends Component {
   render() {
     return (
       <div className='chatroom-container'>
+        <h2>Join one of these chatrooms</h2>
+        <ChatroomsList 
+          chatrooms={this.state.chatrooms}
+          handleChatroomClick={this.handleChatroomClick}
+        />
+        <h2>Or create a new chatroom</h2>
+        <ChatroomForm 
+          handleChatroomFormSubmit={this.handleChatroomFormSubmit}
+        />
         {
         !this.state.currentChatroom ?
-          <div>
-            <h2>Join one of these chatrooms</h2>
-            <ChatroomsList 
-              chatrooms={this.state.chatrooms}
-              handleChatroomClick={this.handleChatroomClick}
-            />
-            <h2>Or create a new chatroom</h2>
-            <ChatroomForm 
-              handleChatroomFormSubmit={this.handleChatroomFormSubmit}
-            />
-          </div>
+          ''
         :
           <ChatRoom 
             currentUser={this.props.currentUser}
