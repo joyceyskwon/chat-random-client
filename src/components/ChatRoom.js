@@ -18,6 +18,7 @@ class ChatRoom extends Component {
     }
     adapter.addMessage(message)
     .then(res => {
+      debugger
       this.setState({ messages: [...res] }, () => console.log(this.state.messages))
     })
   }
