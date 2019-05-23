@@ -16,7 +16,7 @@ class ChatRoom extends Component {
       chatroom_id: this.props.chatroom.id,
       content: content
     }
-    adapter.createMessage(message)
+    adapter.addMessage(message)
     .then(res => {
       this.setState({ messages: [...res] }, () => console.log(this.state.messages))
     })

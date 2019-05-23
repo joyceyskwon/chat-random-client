@@ -10,7 +10,7 @@ class ChatroomsList extends Component {
           return <ChatroomItem 
             key={chatroom.id}
             chatroom={chatroom}
-            onClick={e => this.props.handleChatroomClick(e, chatroom.id)}
+            onClick={this.props.handleChatroomClick}
           />
         })}
       </div>

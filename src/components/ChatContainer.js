@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 // import UsersList from './UsersList'
 import ChatRoom from './ChatRoom'
-import ChatroomForm from './ChatroomForm'
-import ChatroomsList from './ChatroomsList'
+import ChatroomsContainer from './ChatroomsContainer.js'
 import adapter from '../services/adapter'
 
 class ChatContainer extends Component {
@@ -51,25 +50,22 @@ class ChatContainer extends Component {
     })
   }
 
+  findChatroom = chatroomId => this.state.chatrooms.find(chatroom => chatroom.id === chatroomId)
+
   handleChatroomClick = (e, chatroomId) => {
-    console.log("am i clicking?", e, chatroomId)
+    this.setState({ currentChatroom: this.findChatroom(chatroomId) }, ()=>console.log(this.state.currentChatroom))
   }
 
   render() {
     return (
       <div className='chatroom-container'>
-        <h2>Join one of these chatrooms</h2>
-        <ChatroomsList 
-          chatrooms={this.state.chatrooms}
-          handleChatroomClick={this.handleChatroomClick}
-        />
-        <h2>Or create a new chatroom</h2>
-        <ChatroomForm 
-          handleChatroomFormSubmit={this.handleChatroomFormSubmit}
-        />
         {
         !this.state.currentChatroom ?
-          ''
+          <ChatroomsContainer 
+              chatrooms={this.state.chatrooms}
+              handleChatroomClick={this.handleChatroomClick}
+              handleChatroomFormSubmit={this.handleChatroomFormSubmit}
+          />
         :
           <ChatRoom 
             currentUser={this.props.currentUser}
