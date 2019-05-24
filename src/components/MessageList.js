@@ -9,6 +9,7 @@ class MessageList extends Component {
         return <MessageItem
           key={message.id}
           message={message}
+          users={this.props.users}
         />
       })
     } else {

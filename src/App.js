@@ -4,7 +4,6 @@ import LoginForm from './components/LoginForm'
 import ChatContainer from './components/ChatContainer'
 import adapter from './services/adapter'
 import './App.css';
-import { ActionCableConsumer } from 'react-actioncable-provider'
 
 class App extends Component {
 
@@ -41,24 +40,9 @@ class App extends Component {
     this.createUser(user)
   }
 
-  handleSocketResponse = data => {
-    const message = {
-      user_id: data.user_id,
-      chatroom_id: data.chatroom_id,
-      content: data.content
-    }
-    adapter.addMessage(message)
-  }
-
   render() {
     return (
       <div className="App">
-        <ActionCableConsumer 
-          channel={{channel: 'MessageChennel', chatroom_id: this.state.currentChatroom ? this.state.currentChatroom.id : 0}}
-          onReceived={res => {
-            this.handleSocketResponse(res)
-          }}
-        />
         <Nav 
           currentUser={this.state.currentUser}
         />
@@ -71,7 +55,7 @@ class App extends Component {
           <ChatContainer
             users={this.state.users}
             currentUser={this.state.currentUser}
-          />
+          />  
         }
       </div>
     )

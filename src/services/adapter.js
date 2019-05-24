@@ -4,7 +4,6 @@
 
 // Heroku URLs
 const API_ROOT = "https://chat-random-server.herokuapp.com"
-
 const API_WS_ROOT = "wss://chat-random-server.herokuapp.com/cable"
 
 const headers = {
@@ -54,4 +53,8 @@ const fetchChatrooms = () => {
   return fetch(`${API_ROOT}/chatrooms`).then(res => res.json())
 }
 
-export default { createUser, fetchUsers, addMessage, createChatroom, fetchChatrooms, API_WS_ROOT }
+const fetchChatroom = chatroomId => {
+  return fetch(`${API_ROOT}/chatrooms/${chatroomId}`).then(res => res.json())
+}
+
+export default { createUser, fetchUsers, addMessage, createChatroom, fetchChatrooms, fetchChatroom, API_WS_ROOT }

@@ -7,28 +7,11 @@ import adapter from '../services/adapter'
 class ChatContainer extends Component {
 
   state = {
-    // not used at the moment
-    // isUserClicked: !true,
-    // clickedUser: null,
-
     chatrooms: [],
     currentChatroom: null
   }
 
   // Add findClickedUser & renderClickedUser function back in to pass down to UsersList Component once I figure out how to show all websockets connections
-  // findClickedUser = userId => {
-  //   if (this.props.users.length > 0) {
-  //     return this.props.users.find(user => user.id === userId)
-  //   } else {
-  //     return alert("no users available")
-  //   }
-  // }
-
-  // renderClickedUser = userId => {
-  //   this.setState({ isUserClicked: true }, () => {
-  //     this.setState({ clickedUser: this.findClickedUser(userId) })
-  //   })
-  // }
 
   componentDidMount() {
     this.fetchChatrooms()
@@ -53,7 +36,10 @@ class ChatContainer extends Component {
   findChatroom = chatroomId => this.state.chatrooms.find(chatroom => chatroom.id === chatroomId)
 
   handleChatroomClick = (e, chatroomId) => {
-    this.setState({ currentChatroom: this.findChatroom(chatroomId) }, ()=>console.log(this.state.currentChatroom))
+    // fetches clicked chatroom
+    adapter.fetchChatroom(chatroomId)
+    // sets state currentChatroom
+    this.setState({ currentChatroom: this.findChatroom(chatroomId) })
   }
 
   render() {
@@ -67,7 +53,8 @@ class ChatContainer extends Component {
               handleChatroomFormSubmit={this.handleChatroomFormSubmit}
           />
         :
-          <ChatRoom 
+          <ChatRoom
+            users={this.props.users} 
             currentUser={this.props.currentUser}
             chatroom={this.state.currentChatroom}
           />
